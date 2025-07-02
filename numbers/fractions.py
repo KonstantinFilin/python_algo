@@ -1,18 +1,47 @@
+"""
+    
+    Returns:
+        _type_: _description_
+"""
+
+# TODO: Fractions with a whole part
+# TODO: Fractions queue
+# TODO: Result optimisation
+
+
 class Fraction:
-    def __init__(self, a, b) -> None:
+    def __init__(self, a: float, b: float) -> None:
         self.a = a
         self.b = b
 
     def __str__(self) -> str:
         return str(self.a) + "/" + str(self.b)
 
+    def __repr__(self) -> str:
+        return str(self.a) + "/" + str(self.b)
+
+    def __eq__(self, o: object) -> bool:
+        return self.a == o.a and self.b == o.b
+
     def add(self, frac2):
+        if self.b == frac2.b:
+            return Fraction(
+                self.a + frac2.a,
+                self.b
+            )
+
         return Fraction(
             self.a * frac2.b + frac2.a * self.b,
             self.b * frac2.b
         )
 
     def sub(self, frac2):
+        if self.b == frac2.b:
+            return Fraction(
+                self.a - frac2.a,
+                self.b
+            )
+
         return Fraction(
             self.a * frac2.b - frac2.a * self.b,
             self.b * frac2.b
@@ -57,4 +86,3 @@ if __name__ == "__main__":
         print(f1.mult(f2))
     elif op == "/":
         print(f1.div(f2))
-
