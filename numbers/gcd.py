@@ -3,6 +3,31 @@ GCD - Greatest common divisor
 LCM - Least common multiple
 """
 
+
+def gcd_euclidean_extended(a, b, log=[]):
+    s = 0
+    r = b
+    x = 1
+    d = a
+    log = ['a', 'b', 'd', 'x', 'y']
+
+    while r != 0:
+        log.append((a, b, d, x, 0))
+        quotient = d // r
+        d, r = r, d - quotient * r
+        x, s = s, x - quotient * s
+
+    if b != 0:
+        y = (d - x * a) // b
+    else:
+        y = 0
+
+    log.append((a, b, d, x, y))
+    ret = d, x, y
+
+    return ret, log
+
+
 def gcd_euclidean_mod(a, b):
     log = [('a', 'b')]
 
@@ -116,6 +141,12 @@ if __name__ == "__main__":
 
     ans = gcd_euclidean_subtraction(int(sys.argv[1]), int(sys.argv[2]))
     print("Euclidean subtraction")
+    print(ans[0])
+    print(ans[1])
+    print()
+
+    ans = gcd_euclidean_extended(int(sys.argv[1]), int(sys.argv[2]))
+    print("Euclidean extended (d, x, y: d = ax + by): ")
     print(ans[0])
     print(ans[1])
     print()

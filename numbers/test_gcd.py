@@ -12,6 +12,13 @@ def gcd_fixtures():
     ]
 
 
+def test_gcd_euclidean_extended():
+    assert gcd_euclidean_extended(240, 46)[0] == (2, -9, 47)
+    assert gcd_euclidean_extended(77, 13)[0] == (1,-1, 6)
+    assert gcd_euclidean_extended(91, 11)[0] == (1, 4, -33)
+    assert gcd_euclidean_extended(99, 78)[0] == (3, -11, 14)
+
+
 def test_gcd_euclidean_mod():
     for a, b, o in gcd_fixtures():
         assert gcd_euclidean_mod(a, b)[0] == o
