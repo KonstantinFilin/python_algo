@@ -22,6 +22,27 @@ def modular_multiplicative_inverse2(num: int, mod: int) -> int:
     return x
 
 
+def chinese_remainder_theorem(rest_list, mod_list):
+    m = 1
+    m_list = []
+    y_list = []
+    sum = 0;
+
+    for mm in mod_list:
+        m *= mm
+
+    for mm in mod_list:
+        mi = m / mm
+        yi = modular_multiplicative_inverse(mi, mm)
+        m_list.append(mi)
+        y_list.append(yi)
+
+    for i in range(len(rest_list)):
+        sum += rest_list[i] * m_list[i] * y_list[i]
+
+    return sum % m
+
+
 if __name__ == "__main__":
 
     import sys
