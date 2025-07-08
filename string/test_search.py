@@ -13,3 +13,9 @@ def test_search_naive():
     for f in fixtures():
         assert naive(f[0], f[1])[0] == f[2]
         assert naive(f[0], f[1] + "zzzzzcbnfgdghdfgh")[0] == -1
+
+
+def test_boyer_moore():
+    for f in fixtures():
+        assert boyer_moore(f[0], f[1])[0] == f[2]
+        assert boyer_moore(f[0], f[1] + "zzzzzcbnfgdghdfgh")[0] == -1
