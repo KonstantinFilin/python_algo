@@ -24,3 +24,7 @@ def test_prefix_fumction():
     assert prefix_function("abcdabcabcdabcdab")[0] == [0,0,0,0,1,2,3,1,2,3,4,5,6,7,4,5,6]
 
 
+def test_z_fumction():
+    assert z_function("abacabadaba")[0] == [0, 0, 1, 0, 3, 0, 1, 0, 3, 0, 1]
+
+

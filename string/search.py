@@ -27,17 +27,17 @@ def naive(haystack, needle):
 def rabin_karp(haystack, needle, d, q):
     n = len(haystack)
     m = len(needle)
-    h = pow(d, m-1) % q
+    h = pow(d, m - 1) % q
     p = 0
     t = 0
     result = []
 
-    for i in range(m): # preprocessing
+    for i in range(m):  # preprocessing
         p = (d * p + ord(needle[i])) % q
         t = (d * t + ord(haystack[i])) % q
 
-    for s in range(n - m + 1): # note the +1
-        if p == t: # check character by character
+    for s in range(n - m + 1):  # note the +1
+        if p == t:  # check character by character
             match = True
             for i in range(m):
                 if needle[i] != haystack[s + i]:
@@ -45,10 +45,10 @@ def rabin_karp(haystack, needle, d, q):
                     break
             if match:
                 result = result + [s]
-        if s < n-m:
-            t = (t - h * ord(haystack[s])) % q # remove letter s
-            t = (t * d + ord(haystack[s + m])) % q # add letter s+m
-            t = (t + q) % q # make sure that t >= 0
+        if s < n - m:
+            t = (t - h * ord(haystack[s])) % q  # remove letter s
+            t = (t * d + ord(haystack[s + m])) % q  # add letter s+m
+            t = (t + q) % q  # make sure that t >= 0
 
     return result
 
@@ -109,7 +109,7 @@ def prefix_function(s):
         log.append((prefix, i, k, s[k], s[i]))
 
         while k > 0 and s[k] != s[i]:
-            k = prefix[k-1]
+            k = prefix[k - 1]
 
         if s[k] == s[i]:
             k += 1
@@ -117,6 +117,25 @@ def prefix_function(s):
         prefix[i] = k
 
     return prefix, log
+
+
+def z_function(s):
+    s += '$'
+    l, r = 0, 0
+    z = [0] * len(s)
+    log = [('i', 's', 'l', 'r', 'z')]
+
+    for i in range(1, len(s)):
+        log.append((i, s, l, r, z))
+        z[i] = max(0, min(z[i - l], r - i))
+
+        while s[z[i]] == s[i + z[i]]:
+            z[i] += 1
+
+        if i + z[i] > r:
+            l, r = i, i + z[i]
+
+    return z[:-1], log
 
 
 if __name__ == '__main__':
@@ -135,5 +154,10 @@ if __name__ == '__main__':
 
     ans = prefix_function(s)
     print("Prefix function:")
+    print(ans[0])
+    print(ans[1])
+
+    ans = z_function(s)
+    print("Z-function:")
     print(ans[0])
     print(ans[1])
