@@ -138,6 +138,29 @@ def z_function(s):
     return z[:-1], log
 
 
+def knuth_morris_pratt(haystack, needle):
+    index = -1
+    f = prefix_function(needle)[0]
+    k = 0
+    log = []
+
+    for i in range(len(haystack)):
+
+        log.append((i, k, index, f))
+
+        while k > 0 and (needle[k] != haystack[i]):
+            k = f[k - 1]
+
+        if needle[k] == haystack[i]:
+            k = k + 1
+
+        if k == len(needle):
+            index = i - len(needle) + 1
+            break
+
+    return index, log
+
+
 if __name__ == '__main__':
     s = "AABCACAADAABAAABAA"
     ss = "ABC"
@@ -159,5 +182,10 @@ if __name__ == '__main__':
 
     ans = z_function(s)
     print("Z-function:")
+    print(ans[0])
+    print(ans[1])
+
+    ans = knuth_morris_pratt(s, ss)
+    print("Knuth–Morris–Pratt:")
     print(ans[0])
     print(ans[1])
