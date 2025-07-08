@@ -99,6 +99,26 @@ class last_occurrence(object):
         return self.occurrences[letter]
 
 
+def prefix_function(s):
+    prefix = [0] * len(s)
+    log = [('prefix', 'i', 'k', 's[k]', 's[i]')]
+
+    for i in range(1, len(s)):
+        k = prefix[i - 1]
+
+        log.append((prefix, i, k, s[k], s[i]))
+
+        while k > 0 and s[k] != s[i]:
+            k = prefix[k-1]
+
+        if s[k] == s[i]:
+            k += 1
+
+        prefix[i] = k
+
+    return prefix, log
+
+
 if __name__ == '__main__':
     s = "AABCACAADAABAAABAA"
     ss = "ABC"
@@ -110,5 +130,10 @@ if __name__ == '__main__':
 
     ans = boyer_moore(s, ss)
     print("boyer_moore:")
+    print(ans[0])
+    print(ans[1])
+
+    ans = prefix_function(s)
+    print("Prefix function:")
     print(ans[0])
     print(ans[1])
