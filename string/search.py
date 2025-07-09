@@ -24,33 +24,37 @@ def naive(haystack, needle):
     return -1, log
 
 
-def rabin_karp(haystack, needle, d, q):
-    n = len(haystack)
-    m = len(needle)
-    h = pow(d, m - 1) % q
-    p = 0
-    t = 0
+def rabin_karp(haystack, needle):
     result = []
+    log = []
 
-    for i in range(m):  # preprocessing
-        p = (d * p + ord(needle[i])) % q
-        t = (d * t + ord(haystack[i])) % q
+    haystack = haystack.upper()
+    needle = needle.upper()
 
-    for s in range(n - m + 1):  # note the +1
-        if p == t:  # check character by character
-            match = True
-            for i in range(m):
-                if needle[i] != haystack[s + i]:
-                    match = False
-                    break
-            if match:
-                result = result + [s]
-        if s < n - m:
-            t = (t - h * ord(haystack[s])) % q  # remove letter s
-            t = (t * d + ord(haystack[s + m])) % q  # add letter s+m
-            t = (t + q) % q  # make sure that t >= 0
+    l = len(haystack)
+    l_p = len(needle)
+    con = 26
 
-    return result
+    hash_value = 0
+    current_hash = 0
+
+    for i in range(l_p):
+        hash_value += (ord(needle[i]) - ord('A') + 1) * (con ** (l_p - i - 1))
+        current_hash += (ord(haystack[i]) - ord('A') + 1) * (con ** (l_p - i - 1))
+
+    for ind in range(l - l_p + 1):
+        if ind != 0:
+            current_hash = con * (current_hash - ((ord(haystack[ind - 1]) - ord('A') + 1) * (con ** (l_p - 1)))) \
+                   + (ord(haystack[ind + l_p - 1]) - ord('A') + 1)
+
+        log.append((ind, current_hash, hash_value))
+
+        if current_hash == hash_value:
+            result.append(ind)
+
+    print("End")
+
+    return result, log
 
 
 def boyer_moore(haystack, needle):
@@ -187,5 +191,10 @@ if __name__ == '__main__':
 
     ans = knuth_morris_pratt(s, ss)
     print("Knuth–Morris–Pratt:")
+    print(ans[0])
+    print(ans[1])
+
+    ans = rabin_karp(s, ss)
+    print("Rabin-Karp:")
     print(ans[0])
     print(ans[1])

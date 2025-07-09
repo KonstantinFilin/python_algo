@@ -30,4 +30,5 @@ def test_prefix_fumction():
 def test_z_fumction():
     assert z_function("abacabadaba")[0] == [0, 0, 1, 0, 3, 0, 1, 0, 3, 0, 1]
 
-
+def test_rabin_karp():
+    assert rabin_karp("AABAACAADAABAABA", "AABA")[0] == [0, 9, 12]
