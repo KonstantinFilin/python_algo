@@ -1,3 +1,13 @@
+"""
+Operation	Average	Worst case
+Search	O(n)	O(n)
+Insert	O(1)	O(1)
+Delete	O(1)	O(1)
+Space complexity
+Space	O(n)	O(n)
+"""
+
+
 class Stack:
     def __init__(self) -> None:
         self.items = []

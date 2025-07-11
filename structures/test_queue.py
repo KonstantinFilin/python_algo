@@ -1,25 +1,9 @@
-from stack import *
+from queue import Queue
 import pytest
 
 
-def test_len_and_append():
-    s = Stack()
-
-    assert s.len() == 0
-    s.push("item")
-    assert s.len() == 1
-
-
-def test_is_empty():
-    s = Stack()
-
-    assert s.is_empty() is True
-    s.push("item")
-    assert s.is_empty() is False
-
-
 def test_push_and_pop():
-    s = Stack()
+    s = Queue()
 
     assert s.is_empty()
 
@@ -32,7 +16,7 @@ def test_push_and_pop():
 
     i = s.pop()
 
-    assert i == "three"
+    assert i == "one"
     assert s.len() == 2
 
     i2 = s.pop()
@@ -42,7 +26,7 @@ def test_push_and_pop():
 
     i3 = s.pop()
 
-    assert i3 == "one"
+    assert i3 == "three"
     assert s.len() == 0
     assert s.is_empty()
 
