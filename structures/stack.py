@@ -28,3 +28,6 @@ class Stack:
         item = self.items[-1]
         self.items = self.items[:-1]
         return item
+
+    def get_items(self):
+        return self.items
