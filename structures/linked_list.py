@@ -26,6 +26,22 @@ class LinkedListItem:
     def __repr__(self) -> str:
         return str(self.get_object())
 
+class DoubleLinkedListItem:
+    def __init__(self, obj, prev=None, nxt=None) -> None:
+        super().__init__(obj, nxt)
+        self.prev = prev
+
+    def set_prev(self, prev)->None:
+        if type(prev).__name__ != "LinkedListItem":
+            raise TypeError("head param must be instance of LinkedListItem class")
+        self.prev = prev
+
+    def has_prev(self) -> bool:
+        return self.prev is not None
+
+    def get_prev(self):
+        return self.prev
+
 
 class LinkedList():
     def __init__(self) -> None:
@@ -221,3 +237,31 @@ class LinkedList():
             no = no.get_next()
 
         raise IndexError(f"Element index must be between 0 and {c - 1}")
+
+
+class DoubleLinkedList(LinkedList):
+    def __init__(self) -> None:
+        self.head = None
+
+    def insert_start(self, obj):
+        pass
+        """
+        if type(obj).__name__ != "LinkedListItem":
+            raise TypeError("head param must be instance of LinkedListItem class")
+
+        obj.set_next(self.head)
+        self.set_head(obj)
+        """
+
+    def insert_end(self, obj):
+        pass
+
+    def insert_n(self, obj, n):
+        pass
+
+    def remove_n(self, n):
+        pass
+
+    """
+    def change(self, i, j):
+    """
