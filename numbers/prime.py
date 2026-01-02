@@ -39,7 +39,9 @@ def is_prime(n):
     if n <= 1:
         return False
 
-    for i in range(2, int(math.sqrt(n)) + 1):
+    e = int(math.sqrt(n)) + 1
+
+    for i in range(2, e):
         if n % i == 0:
             return False
 
@@ -48,7 +50,9 @@ def is_prime(n):
 
 if __name__ == "__main__":
     import sys
-    ans = is_prime(int(sys.argv[1]))
+    # ans = is_prime(int(sys.argv[1]))
+    is_prime(25);
+    ans = 15
     print("Is prime" if ans else "Is NOT prime")
 
     print(get_primes_less_than(int(sys.argv[1])))
